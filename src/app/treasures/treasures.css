@@ -1,0 +1,168 @@
+/* ===== HEADING ===== */
+.page-title {
+  font-family: 'Cinzel', serif;
+  text-align: center;
+  margin: 3rem 0 2rem;
+  font-size: 3.3rem;
+  font-weight: bold;
+  color: var(--deep-blue);
+}
+
+/* ===== PRODUCT GRID ===== */
+.treasure-card {
+  position: relative;
+  border-radius: 18px;
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #ffffff, #ece4d8);
+  box-shadow: var(--shadow-soft);
+  transition: transform .35s ease, box-shadow .35s ease;
+  overflow: hidden;
+  /* FIX: flex column layout */
+  display: flex;
+  flex-direction: column;
+  height: 450px; /* fixed height */
+}
+
+  .treasure-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 45px rgba(0,0,0,.25);
+  }
+
+/* ===== CATEGORY COLORS ===== */
+.treasure-rose {
+  border-top: 6px solid var(--rose);
+}
+
+.treasure-emerald {
+  border-top: 6px solid var(--emerald);
+}
+
+.treasure-gold {
+  border-top: 6px solid var(--gold);
+}
+
+.treasure-blue {
+  border-top: 6px solid var(--deep-blue);
+}
+
+.treasure-olive {
+  border-top: 6px solid #636B2F;
+}
+
+/* ===== CARD CONTENT ===== */
+.treasure-title {
+  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--deep-blue);
+}
+
+.treasure-desc {
+  font-size: 1.0rem;
+  opacity: 0.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--deep-blue);
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* limit to 3 lines */
+  -webkit-box-orient: vertical;
+}
+
+.treasure-price {
+  font-size: 1.0rem;
+  font-weight: bold;
+  opacity: 0.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--deep-blue);
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* limit to 3 lines */
+  -webkit-box-orient: vertical;
+}
+
+.view-btn {
+  display: inline-block;
+  margin-top: .5rem;
+  font-weight: 500;
+  color: var(--deep-blue);
+  text-decoration: none;
+  border-bottom: 2px solid var(--gold);
+  transition: .3s;
+}
+
+  .view-btn:hover {
+    color: var(--gold);
+    border-color: var(--deep-blue);
+  }
+
+/* ===== BADGE ===== */
+.badge-treasure {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--gold);
+  color: #fff;
+  font-size: .7rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+  letter-spacing: .5px;
+}
+
+.treasure-card button.addto {
+  font-size: .7rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: var(--rose);
+  color: #fff;
+  border: none;
+  margin-top: auto;
+  width: 30%;
+}
+/*search bar*/
+.round-search {
+  position: relative;
+  width: 320px; /* slightly bigger */
+}
+
+  .round-search input {
+    width: 100%;
+    padding: 8px 16px 8px 36px; /* padding-left matches icon */
+    border-radius: 50px; /* full round */
+    border: 1px solid #d6d6d6;
+    font-size: 14px;
+    font-weight:bold;
+    background: #fff;
+    outline: none;
+    transition: all 0.25s ease;
+    font-palette: var(--rose);
+  }
+
+    .round-search input::placeholder {
+      color: var(--rose);
+    }
+
+    .round-search input:focus {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 2px rgba(58, 90, 64, 0.15);
+    }
+
+  .round-search .bi-search-heart {
+    position: absolute;
+    left: 12px; /* aligned nicely with padding */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px; 
+    color: var(--rose);
+    pointer-events: none;
+  }
+
+
+.card-img-top {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+

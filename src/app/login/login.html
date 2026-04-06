@@ -1,0 +1,59 @@
+<html>
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/images/logo1.png">
+  <link rel="shortcut icon" href="/assets/images/logo1.png" type="image/x-icon">
+
+  <title>Crafted Treasures | Login</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+</head>
+
+<body>
+
+  <div class="login-glass">
+
+    <div class="Login-box">
+      <button class="close-btn"><i class="bi bi-x-lg"></i></button>
+    </div>
+
+    <div class="brand">
+      <img src="/assets/images/logo1.png" alt="Crafted Treasures Logo">
+      <h1>Crafted Treasures</h1>
+      <span>Handmade • Heritage • Heart</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>Treasure Inside → <i class="bi bi-box2-heart"></i></h2>
+
+    <form (ngSubmit)="loginUser()">
+      <div class="mb-3">
+        <label>Email Address</label>
+        <input [(ngModel)]="email" name="email" type="email" class="form-control" placeholder="Enter your email" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Password</label>
+        <input [(ngModel)]="password" name="password" type="password" class="form-control" placeholder="Enter your password" required>
+      </div>
+
+      <button type="submit" class="btn btn-login w-100">Login</button>
+    </form>
+
+    <div class="register-link">
+      Don’t have an account?
+      <a routerLink="/register">Register</a>
+    </div>
+
+  </div>
+
+  </body>
+</html>

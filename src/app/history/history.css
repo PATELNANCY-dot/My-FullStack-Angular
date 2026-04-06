@@ -1,0 +1,114 @@
+/* Main soft container (matches homepage hero) */
+.history-wrapper {
+  background: #fbf6e9;
+  border-radius: 28px;
+  padding: 50px 40px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* Title */
+.page-title {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 3px;
+  color: #c9a24d;
+  font-size: 2rem;
+}
+
+/* Order card */
+.order-card {
+  border-radius: 22px;
+  background: #FFFFF0;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+/* Order header */
+.order-header {
+  background: linear-gradient(135deg, #3f5e4e, #2f4f40);
+  color: #f9f6f1;
+  padding: 14px 22px;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+/* Product row */
+.product-row {
+  border-bottom: 1px solid #eee;
+  padding: 16px 0;
+  align-items: center;
+}
+
+  .product-row:last-child {
+    border-bottom: none;
+  }
+
+.page-title {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 3px;
+  color: #c9a24d;
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+  .page-title i {
+    font-size: 1.4rem;
+    color: #c9a24d;
+    opacity: 0.85;
+  }
+
+
+/* Price pill */
+.price {
+  background: #f1e7d3;
+  padding: 6px 16px;
+  border-radius: 25px;
+  font-weight: 500;
+  color: #3e2c1c;
+  font-size: 0.95rem;
+}
+
+/* Buttons */
+.soft-btn {
+  background: #c9a24d;
+  color: #fff;
+  border-radius: 30px;
+  padding: 8px 22px;
+  border: none;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+  .soft-btn:hover {
+    background: #b08b3e;
+    color: #fff;
+  }
+
+.clear-btn {
+  background: transparent;
+  border: 1px solid #3f5e4e;
+  color: #3f5e4e;
+  border-radius: 30px;
+  padding: 7px 20px;
+  transition: 0.3s ease;
+}
+
+  .clear-btn:hover {
+    background: #3f5e4e;
+    color: #fff;
+  }
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  margin-top: 80px;
+  color: #888;
+}
+
+.subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  color: #8c7b68;
+  letter-spacing: 0.4px;
+  font-weight: 300;
+  margin-top: 4px;
+}

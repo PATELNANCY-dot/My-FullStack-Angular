@@ -1,0 +1,63 @@
+.card {
+  border-radius: 20px;
+  border: none;
+  background: #dad7cd;
+}
+
+.cart-item {
+  transition: .3s;
+}
+
+  .cart-item:hover {
+    background: rgba(201, 162, 77, 0.08);
+  }
+
+.text-danger {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#buy {
+  background: var(--rose);
+  border: none;
+  padding: 8px 20px;
+  border-radius: 25px;
+  color: white;
+}
+
+.cart-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.treasure-title {
+  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--deep-blue);
+}
+
+.treasure-price {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  opacity: 0.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #3E2723;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* limit to 3 lines */
+  -webkit-box-orient: vertical;
+}
+
+.treasure-cart1 {
+  font-size: 30px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--deep-blue);
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* limit to 3 lines */
+  -webkit-box-orient: vertical;
+}

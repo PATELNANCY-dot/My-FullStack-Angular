@@ -1,0 +1,128 @@
+
+/* Works for modern browsers */
+::-webkit-scrollbar {
+  width: 0px; /* Chrome, Safari, Edge */
+  background: transparent;
+}
+
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+body {
+  background: url("/assets/images/img2.jpg") center no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+/* ===== GLASS REGISTER CARD ===== */
+.register-glass {
+  width: 100%;
+  max-width: 440px;
+  padding: 45px 40px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+}
+
+/* Brand section */
+.brand {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+  .brand img {
+    height: 85px;
+    border-radius: 50%;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+
+  .brand h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    margin-top: 12px;
+    color: var(--green-dark);
+    letter-spacing: 1px;
+  }
+
+  .brand span {
+    font-size: 0.85rem;
+    color: #6b705c;
+    letter-spacing: 0.4px;
+  }
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: 24px 0;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1.4rem;
+  color: #344e41;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: 500;
+  color: #3d405b;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 14px;
+}
+
+.btn-register {
+  background: linear-gradient(135deg, var(--green-dark), var(--green-soft));
+  color: white;
+  padding: 12px;
+  border-radius: 14px;
+  margin-top: 8px;
+}
+
+  .btn-register:hover {
+    background: linear-gradient(135deg, var(--green-soft), var(--green-dark));
+    color: white;
+  }
+
+.login-link {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 0.9rem;
+}
+
+  .login-link a {
+    color: var(--green-dark);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+.close-btn {
+  font-size: .7rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: var(--green-dark);
+  color: #fff;
+  border: none;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+

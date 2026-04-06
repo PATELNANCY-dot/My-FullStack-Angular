@@ -1,0 +1,130 @@
+/* Works for modern browsers */
+::-webkit-scrollbar {
+  width: 0px; /* Chrome, Safari, Edge */
+  background: transparent;
+}
+
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+body {
+  background: url("/assets/images/img2.jpg") center no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+:root {
+  --green-dark: #3a5a40;
+  --green-soft: #52796f;
+  --gold: #c9a24d;
+}
+
+/* ===== GLASS LOGIN CARD ===== */
+.login-glass {
+  width: 100%;
+  max-width: 420px;
+  padding: 45px 40px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+}
+
+/* Logo inside card */
+.brand {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+  .brand img {
+    height: 85px;
+    border-radius: 50%;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+
+  .brand h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    margin-top: 12px;
+    color: var(--green-dark);
+    letter-spacing: 1px;
+  }
+
+  .brand span {
+    font-size: 0.85rem;
+    color: #6b705c;
+    letter-spacing: 0.4px;
+  }
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent,#c9a24d, transparent);
+  margin: 25px 0;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1.4rem;
+  color: #344e41;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: 500;
+  color: #3d405b;
+}
+
+.form-control {
+  border-radius: 12px;
+  padding: 12px;
+}
+:root {
+  --green-dark: #3a5a40;
+  --green-soft: #52796f;
+  --gold: #c9a24d;
+}
+
+.btn-login {
+  background: linear-gradient(135deg, #3a5a40,#52796f);
+  color: white;
+  padding: 12px;
+  border-radius: 14px;
+  margin-top: 10px;
+}
+
+
+.register-link {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 0.9rem;
+}
+
+  .register-link a {
+    color: #3a5a40;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+.close-btn {
+  font-size: .7rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: #3a5a40;
+  color: #fff;
+  border: none;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}

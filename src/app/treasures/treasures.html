@@ -1,0 +1,53 @@
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="logo1.png">
+  <link rel="shortcut icon" href="logo1.png" type="image/x-icon">
+
+  <title>Crafted Treasures | Treasures</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- CONTENT -->
+  <div class="container mb-5">
+
+    <h1 class="page-title">Treasures</h1>
+
+    <div class="round-search mb-5">
+      <i class="bi bi-search-heart"></i>
+
+      <input type="text"
+             placeholder="Seek. Find. Love. ♥"
+             [(ngModel)]="searchText"
+             (keyup)="searchItems()" />
+    </div>
+
+    <div class="row g-4 mb-5">
+
+      <div class="col-sm-6 col-md-3" *ngFor="let p of products">
+
+        <div class="treasure-card treasure-olive">
+
+          <img [src]="p.productimage" class="card-img-top">
+
+          <h5 class="treasure-title">{{p.productname}}</h5>
+
+          <p class="treasure-desc">{{p.productdescription}}</p>
+
+          <p class="treasure-price">RS. {{p.price}}</p>
+
+          <button class="addto" (click)="addToCart(p)">ADD</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
