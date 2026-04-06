@@ -18,6 +18,7 @@ import { CartService } from '../Service/cart.service';
 export class Treasures implements OnInit {
 
   products: any[] = [];
+  expandedProduct: number | null = null;
   searchText = '';
 
   constructor(
@@ -94,5 +95,17 @@ export class Treasures implements OnInit {
         this.products = data;
       });
   }
+
+
+  toggleDescription(id: number) {
+
+    if (this.expandedProduct === id) {
+      this.expandedProduct = null;
+    } else {
+      this.expandedProduct = id;
+    }
+
+  }
+
 
 }

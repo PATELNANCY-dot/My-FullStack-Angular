@@ -17,10 +17,10 @@
   box-shadow: var(--shadow-soft);
   transition: transform .35s ease, box-shadow .35s ease;
   overflow: hidden;
-  /* FIX: flex column layout */
+
   display: flex;
   flex-direction: column;
-  height: 450px; /* fixed height */
+  height: 485PX; 
 }
 
   .treasure-card:hover {
@@ -58,15 +58,20 @@
 }
 
 .treasure-desc {
-  font-size: 1.0rem;
+  font-size: 1rem;
   opacity: 0.8;
-  overflow: hidden;
-  text-overflow: ellipsis;
   color: var(--deep-blue);
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* limit to 3 lines */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
 }
+
+  .treasure-desc.expanded {
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
 
 .treasure-price {
   font-size: 1.0rem;
@@ -165,4 +170,29 @@
   margin-bottom: 10px;
 }
 
+.addto:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
 
+
+.see-more {
+  color: #8b5e3c;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+  .see-more:hover {
+    text-decoration: underline;
+  }
+
+.low-stock {
+  color: #b07a3f;
+  font-weight: 500;
+}
+
+.out-stock {
+  color: #C65D5D;
+  font-weight: 500;
+}

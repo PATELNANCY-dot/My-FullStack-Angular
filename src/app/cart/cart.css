@@ -61,3 +61,16 @@
   -webkit-line-clamp: 3; /* limit to 3 lines */
   -webkit-box-orient: vertical;
 }
+
+
+.btn-outline-secondary {
+  border-width: 2px;
+  border-radius: 6px;
+  font-weight: 600;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

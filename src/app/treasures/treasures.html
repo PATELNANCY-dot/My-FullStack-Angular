@@ -37,11 +37,33 @@
 
           <h5 class="treasure-title">{{p.productname}}</h5>
 
-          <p class="treasure-desc">{{p.productdescription}}</p>
+          <p class="treasure-desc"
+             [class.expanded]="expandedProduct === p.productid">
+
+            {{p.productdescription}}
+
+          </p>
 
           <p class="treasure-price">RS. {{p.price}}</p>
 
-          <button class="addto" (click)="addToCart(p)">ADD</button>
+
+          <!-- OUT OF STOCK -->
+          <p *ngIf="p.productquentity == 0" class="out-stock">
+            Out of Stock
+          </p>
+
+          <!-- LOW STOCK -->
+          <p *ngIf="p.productquentity > 0 && p.productquentity <= 5" class="low-stock">
+            Only {{p.productquentity}} remaining
+          </p>
+
+          <button class="addto"
+                  (click)="addToCart(p)"
+                  [disabled]="p.productquentity <= 0">
+
+            ADD
+
+          </button>
 
         </div>
 

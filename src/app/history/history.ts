@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { UserService } from '../Service/user';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-history',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './history.html',
   styleUrls: ['./history.css']
 })

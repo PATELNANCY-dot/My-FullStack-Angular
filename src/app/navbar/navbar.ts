@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { UserService } from '../Service/user';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { CartService } from '../Service/cart.service';
+import { UserService, User } from '../Service/user';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +16,7 @@ import { CartService } from '../Service/cart.service';
 export class Navbar implements OnInit {
 
   cartCount: number = 0;
-
+  user: any = {};
   constructor(
     public userService: UserService,
     private http: HttpClient,
@@ -25,6 +25,8 @@ export class Navbar implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.user = this.userService.getUser();
 
     if (this.isLoggedIn) {
       this.loadCartCount();

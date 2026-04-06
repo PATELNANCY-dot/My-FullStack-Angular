@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '../Service/user';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { routes } from '../app.routes';
 import { CartService } from '../Service/cart.service';
 
 @Component({
@@ -53,7 +52,8 @@ export class Cart implements OnInit {
           title: item.productname,
           price: Number(item.price) || 0,
           quantity: Number(item.quantity) || 1,
-          imgSrc: item.productimage
+          imgSrc: item.productimage,
+          productquentity: item.productquentity
         }));
         this.calculateTotal();
         this.updateCartCount();
@@ -90,7 +90,7 @@ export class Cart implements OnInit {
           this.updateCartCount();
           this.cdr.detectChanges();
         } else {
-          alert(res.message);
+          console.log(res.message);
         }
       },
       error: (err) => {
@@ -132,20 +132,35 @@ export class Cart implements OnInit {
 
     this.http.post<any>(
       `https://localhost:7107/Treasure/PlaceOrder?ClientID=${this.user.ClientID}`, {}
-    ).subscribe(res => {
+    ).subscribe({
+      next: (res) => {
 
-      if (res.success) {
+        // Use the message returned by SQL
+        if (res.success) {
+          // If SQL returned adjustment messages, show them
+          alert(res.message);
 
-        alert("Order placed successfully!");
-        this.cart = [];
-        this.totalPrice = 0;
-        this.updateCartCount();
-        this.router.navigate(['./history'])
+          // If the message is "Order placed successfully!", clear cart
+          if (res.message.includes('Order placed successfully')) {
+            this.cart = [];
+            this.totalPrice = 0;
+            this.updateCartCount();
+            this.router.navigate(['./history']);
+          } else {
+            // If quantities were adjusted, reload cart so user sees correct quantities
+            this.loadCart();
+          }
 
-      } else {
-        alert(res.message);
+        } else {
+          // Show error message from backend
+          alert(res.message);
+        }
+
+      },
+      error: (err) => {
+        console.error("Place order failed", err);
+        alert("Failed to place order.");
       }
-
     });
 
   }

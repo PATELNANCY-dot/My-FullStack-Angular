@@ -51,7 +51,8 @@
                style="width:50px;">
 
         <button class="btn btn-sm btn-outline-secondary"
-                (click)="updateCartQuantity(item.cartid,1)">
+                (click)="updateCartQuantity(item.cartid,1)"
+                [disabled]="item.quantity >= item.productquentity">
           +
         </button>
 

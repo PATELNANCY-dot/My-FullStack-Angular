@@ -4,10 +4,13 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\cart",
+    "\\src\\app\\history",
     "\\src\\app\\navbar",
+    "\\src\\app\\register",
     "\\src\\app\\Service",
-    "\\src\\app\\treasures"
+    "\\src\\app\\treasures",
+    "\\src\\assets"
   ],
-  "SelectedNode": "\\src",
+  "SelectedNode": "\\src\\app\\treasures\\treasures.css",
   "PreviewInSolutionExplorer": false
 }

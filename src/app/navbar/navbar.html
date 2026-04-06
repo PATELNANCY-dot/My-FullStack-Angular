@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 
-  <!-- NAVBAR -->
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg">
   <a class="navbar-brand d-flex align-items-center" href="#">
     <img src="assets/images/logo1.png" alt="Crafted Treasures Logo" height="60" class="me-2">
@@ -53,16 +53,52 @@
            role="button"
            data-bs-toggle="dropdown"
            aria-expanded="false">
-            {{ userName.charAt(0).toUpperCase() }}
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" routerLink="#">Profile</a></li>
-            <li><a class="dropdown-item" routerLink="/history">Treasure History</a></li>
-            <li><a class="dropdown-item" routerLink="#">Settings</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
-          </ul>
-</li>
+          {{ userName.charAt(0).toUpperCase() }}
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a></li>
+          <li><a class="dropdown-item" routerLink="/history">Treasure History</a></li>
+          <li><a class="dropdown-item" routerLink="#">Settings</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
 </nav>
+
+
+<!-- PROFILE MODAL -->
+<div class="modal fade" id="profileModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">My Profile</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="profile-avatar">
+          {{userName.charAt(0).toUpperCase()}}
+        </div>
+
+        <div class="mb-2">
+          <strong>Name:</strong> {{user.fullName}}
+        </div>
+
+        <div class="mb-2">
+          <strong>Email:</strong> {{user.email}}
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
