@@ -5,6 +5,9 @@ import { UserService } from '../Service/user';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../Service/cart.service';
+import GLightbox from 'glightbox';
+import { Modal } from 'bootstrap';
+
 
 @Component({
   selector: 'app-cart',
@@ -43,7 +46,7 @@ export class Cart implements OnInit {
   // LOAD CART
   loadCart() {
 
-    this.http.get<any>(`https://localhost:7107/Treasure/Cart?ClientID=${this.user.ClientID}`)
+    this.http.get<any>(`https://localhost:7107/api/Treasure/Cart?ClientID=${this.user.ClientID}`)
       .subscribe(data => {
 
         this.cart = data.map((item: any) => ({
@@ -73,31 +76,47 @@ export class Cart implements OnInit {
 
   // UPDATE QUANTITY
   updateCartQuantity(cartid: number, change: number) {
+
     const item = this.cart.find(c => c.cartid === cartid);
     if (!item) return;
 
     const newQty = item.quantity + change;
-    if (newQty < 1) return;
 
-    // Call backend first
+    // if quantity becomes 0 remove item
+    if (newQty === 0) {
+
+      this.removeCartItem(cartid);
+
+      // close modal if open
+      const modalEl = document.getElementById('productModal');
+      if (modalEl) {
+        const modal = Modal.getInstance(modalEl);
+        modal?.hide();
+      }
+
+      return;
+    }
+
     this.http.get<any>(
-      `https://localhost:7107/Treasure/UpdateCartQuantity?Cartid=${cartid}&Quantity=${newQty}`
+      `https://localhost:7107/api/Treasure/UpdateCartQuantity?Cartid=${cartid}&Quantity=${newQty}`
     ).subscribe({
       next: (res) => {
+
         if (res.success) {
           item.quantity = newQty;
+
           this.calculateTotal();
           this.updateCartCount();
           this.cdr.detectChanges();
-        } else {
-          console.log(res.message);
         }
+
       },
       error: (err) => {
-        console.error("Backend update failed", err);
-        alert("Failed to update quantity.");
+        console.error(err);
       }
+
     });
+
   }
 
   // REMOVE ITEM
@@ -110,7 +129,7 @@ export class Cart implements OnInit {
 
     // Remove from database
     this.http.get<any>(
-      `https://localhost:7107/Treasure/RemoveItem?Cartid=${cartid}`
+      `https://localhost:7107/api/Treasure/RemoveItem?Cartid=${cartid}`
     ).subscribe(res => {
 
       if (!res.success) {
@@ -131,7 +150,7 @@ export class Cart implements OnInit {
     }
 
     this.http.post<any>(
-      `https://localhost:7107/Treasure/PlaceOrder?ClientID=${this.user.ClientID}`, {}
+      `https://localhost:7107/api/Treasure/PlaceOrder?ClientID=${this.user.ClientID}`, {}
     ).subscribe({
       next: (res) => {
 
@@ -174,5 +193,31 @@ export class Cart implements OnInit {
 
     this.cartService.setCartCount(count);
 
+  }
+
+  selectedProduct: any = null;
+
+  lightbox: any;
+
+  openModal(product: any) {
+    this.selectedProduct = product;
+
+    const modalEl = document.getElementById('productModal');
+    if (modalEl) {
+      const modal = new Modal(modalEl);
+      modal.show();
+    }
+
+    // wait for modal to render DOM
+    setTimeout(() => {
+      if (this.lightbox) {
+        this.lightbox.destroy();
+      }
+
+      this.lightbox = GLightbox({
+        selector: '.glightbox'
+      });
+
+    }, 200);
   }
 }

@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Router,RouterLink } from '@angular/router';
 import { UserService, User } from '../Service/user';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, CommonModule],
   templateUrl: './register.html',
   styleUrls: ['./register.css'],
 })
@@ -16,6 +17,9 @@ export class Register {
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
+
+  hidePassword = true;            
+  hideConfirmPassword = true;   
 
   constructor(
     private http: HttpClient,
@@ -29,7 +33,7 @@ export class Register {
       return;
     }
 
-    this.http.get<any>(`https://localhost:7107/Treasure/InsertClient?FullName=${encodeURIComponent(this.fullName)}&Email=${encodeURIComponent(this.email)}&passwords=${encodeURIComponent(this.password)}`)
+    this.http.get<any>(`https://localhost:7107/api/Treasure/InsertClient?FullName=${encodeURIComponent(this.fullName)}&Email=${encodeURIComponent(this.email)}&passwords=${encodeURIComponent(this.password)}`)
       .subscribe({
         next: (data) => {
           alert(data.message);

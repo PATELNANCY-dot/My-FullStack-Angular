@@ -26,7 +26,7 @@
     <div *ngFor="let item of cart" class="row align-items-center border-bottom py-3">
 
       <div class="col-md-2">
-        <img [src]="item.imgSrc" class="cart-img rounded">
+        <img [src]="item.imgSrc" class="cart-img rounded" (click)="openModal(item)">
       </div>
 
       <div class="col-md-4 treasure-title ">
@@ -84,3 +84,57 @@
   </div>
 
 </div>
+
+
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content" style="border-radius:18px;background:linear-gradient(145deg,#ffffff,#ece4d8);">
+
+      <!-- HEADER -->
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:var(--deep-blue);font-weight:bold;">
+          {{ selectedProduct?.title }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body">
+
+        <a [href]="selectedProduct?.imgSrc" class="glightbox">
+          <img [src]="selectedProduct?.imgSrc" class="img-fluid modal-product-img">
+        </a>
+
+        <p><strong>Price:</strong> RS. {{ selectedProduct?.price }}</p>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="modal-footer">
+
+        <div class="d-flex align-items-center ms-auto">
+
+          <button class="btn btn-outline-secondary"
+                  (click)="updateCartQuantity(selectedProduct.cartid,-1)">
+            -
+          </button>
+
+          <input type="text"
+                 [value]="selectedProduct?.quantity"
+                 readonly
+                 class="form-control text-center mx-2"
+                 style="width:60px;">
+
+          <button class="btn btn-outline-secondary"
+                  (click)="updateCartQuantity(selectedProduct.cartid,1)"
+                  [disabled]="selectedProduct?.quantity >= selectedProduct?.productquentity">
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+

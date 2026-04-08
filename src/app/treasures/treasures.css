@@ -113,16 +113,20 @@
   letter-spacing: .5px;
 }
 
-.treasure-card button.addto {
-  font-size: .7rem;
-  padding: 5px 10px;
-  border-radius: 20px;
-  background: var(--rose);
-  color: #fff;
-  border: none;
-  margin-top: auto;
-  width: 30%;
+.treasure-card button.addto{
+  font-size:.7rem;
+  padding:5px 12px;
+  border-radius:20px;
+  background:var(--rose);
+  color:#fff;
+  border:none;
+
+  position:absolute;
+  bottom:12px;
+  right:12px;   /* RIGHT SIDE */
+  width:auto;
 }
+
 /*search bar*/
 .round-search {
   position: relative;
@@ -195,4 +199,110 @@
 .out-stock {
   color: #C65D5D;
   font-weight: 500;
+}
+
+
+
+
+
+.treasure-card  .btn-outline-secondary {
+  border-width: 2px;
+  border-radius: 6px;
+  font-weight: 600;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#productModal .btn-outline-secondary {
+  border-width: 2px;
+  border-radius: 6px;
+  font-weight: 600;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ===== MODAL IMAGE ===== */
+#productModal .modal-body img {
+  width: 100%; /* full width of modal */
+  max-height: 350px; /* fixed max height */
+  object-fit: contain; /* maintain aspect ratio & crop if needed */
+  border-radius: 12px; /* match card border radius */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+}
+
+
+/* ===== MODAL BODY TEXT ===== */
+#productModal .modal-body p {
+  font-family: 'Poppins', sans-serif;
+  color: var(--deep-blue);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+/* ===== MODAL BUTTONS ===== */
+#productModal .modal-footer .btn-primary {
+  background: var(--rose);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+  #productModal .modal-footer .btn-primary:hover {
+    background: #8b5e3c;
+  }
+
+#productModal .modal-footer .btn-secondary {
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-weight: 500;
+  border: 1px solid #d6d6d6;
+}
+
+.modal-product-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 12px;
+  cursor: zoom-in;
+}
+
+
+.treasure-card .wishlist-heart {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
+  z-index: 10;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+  .treasure-card .wishlist-heart.bi-heart-fill {
+    color: var(--mat-red) !important;
+  }
+
+  .treasure-card .wishlist-heart.bi-heart {
+    color: var(--deep-blue) !important;
+  }
+
+  .treasure-card .wishlist-heart:hover {
+    transform: scale(1.3) translateY(-2px);
+  }
+
+.wishlist-heart.bi-heart-fill {
+  color: var(--mat-red) !important;
 }

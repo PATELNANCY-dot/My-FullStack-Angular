@@ -74,3 +74,56 @@
   align-items: center;
   justify-content: center;
 }
+
+
+
+/* ===== MODAL IMAGE ===== */
+#productModal .modal-body img {
+  width: 100%; /* full width of modal */
+  max-height: 350px; /* fixed max height */
+  object-fit: contain; /* maintain aspect ratio & crop if needed */
+  border-radius: 12px; /* match card border radius */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+}
+
+
+/* ===== MODAL BODY TEXT ===== */
+#productModal .modal-body p {
+  font-family: 'Poppins', sans-serif;
+  color: var(--deep-blue);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+/* ===== MODAL BUTTONS ===== */
+#productModal .modal-footer .btn-primary {
+  background: var(--rose);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+  #productModal .modal-footer .btn-primary:hover {
+    background: #8b5e3c;
+  }
+
+#productModal .modal-footer .btn-secondary {
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-weight: 500;
+  border: 1px solid #d6d6d6;
+}
+
+.modal-product-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 12px;
+  cursor: zoom-in;
+}

@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserService, User } from '../Service/user';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router'
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, CommonModule],
   standalone: true,
   templateUrl: './login.html',
   styleUrls: ['./login.css']
@@ -14,14 +15,14 @@ import { Router, RouterLink } from '@angular/router'
 export class Login {
   email = '';
   password = '';
-
+  hidePassword = true;
   constructor(private http: HttpClient, private userService: UserService, private router: Router) { }
 
   loginUser() {
     const payload = { Email: this.email, passwords: this.password };
 
     this.http.get<any>(
-      `https://localhost:7107/Treasure/LoginClient?Email=${encodeURIComponent(this.email)}&passwords=${encodeURIComponent(this.password)}`
+      `https://localhost:7107/api/Treasure/LoginClient?Email=${encodeURIComponent(this.email)}&passwords=${encodeURIComponent(this.password)}`
     ).subscribe({
       next: (data) => {
         if (data.success) {

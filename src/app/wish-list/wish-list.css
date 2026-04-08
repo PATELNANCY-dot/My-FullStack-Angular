@@ -1,0 +1,137 @@
+/* ===== Container ===== */
+.wishlist-container {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  padding: 0 20px; /* side padding */
+}
+
+/* ===== Wishlist Title ===== */
+.wishlist-title {
+  font-family: 'Cinzel', serif;
+  text-align: center;
+  margin: 3rem 0 2rem;
+  font-size: 3.3rem;
+  font-weight: bold;
+  color: var(--deep-blue);
+}
+
+/* ===== Empty Message ===== */
+.empty-msg {
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* ===== Wishlist Card ===== */
+.wishlist-card {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff8f0;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  padding: 12px;
+}
+
+  .wishlist-card:hover {
+    transform: translateY(-5px);
+  }
+
+/* ===== Remove Button ===== */
+.remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.2rem;
+  color: var(--deep-blue);
+  cursor: pointer;
+  z-index: 2;
+}
+
+  .remove-btn:hover {
+    color: #e53935;
+  }
+
+/* ===== Product Image ===== */
+.card-img-top {
+  width: 100%;
+  height: 200px; /* fixed height */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+/* ===== Product Name & Note Icon ===== */
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Note Icon */
+.note-icon {
+  font-size: 1.2rem;
+  color: var(--deep-blue);
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+
+/* ===== Sliding Note Section ===== */
+.note-section {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.3s ease;
+  background-color: #f6f1e7; /* sand */
+  border-radius: 12px;
+  padding: 0 12px;
+  margin-top: 6px;
+}
+
+  .note-section.show {
+    max-height: 180px; /* adjust as needed */
+    opacity: 1;
+    padding: 12px;
+  }
+
+/* ===== Textarea inside Note Section ===== */
+.note-textarea {
+  width: 100%;
+  border: 1px solid #c9a24d; /* gold border */
+  border-radius: 8px;
+  padding: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  color: #2f3e46; /* deep blue */
+  resize: vertical;
+  min-height: 60px;
+}
+
+  .note-textarea:focus {
+    outline: none;
+    box-shadow: 0 0 5px #b56576; 
+  }
+
+/* ===== Save Button ===== */
+.save-note-btn {
+  margin-top: 6px;
+  color: var(--deep-blue);
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background-color: var(--sand); 
+  transition: all 0.2s ease;
+}
+
+  .save-note-btn:hover {
+    transform: translateY(-2px);
+  }

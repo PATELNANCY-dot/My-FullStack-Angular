@@ -40,11 +40,21 @@
         <input [(ngModel)]="email" name="email" type="email" class="form-control" placeholder="Enter your email" required>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 position-relative">
         <label>Password</label>
-        <input [(ngModel)]="password" name="password" type="password" class="form-control" placeholder="Enter your password" required>
-      </div>
+        <input [(ngModel)]="password"
+               name="password"
+               [type]="hidePassword ? 'password' : 'text'"
+               class="form-control"
+               placeholder="Enter your password"
+               required>
 
+        <i class="bi"
+           [ngClass]="hidePassword ? 'bi-eye' : 'bi-eye-slash'"
+           (click)="hidePassword = !hidePassword"
+           style="position: absolute; right: 10px; top: 38px; cursor: pointer;">
+        </i>
+      </div>
       <button type="submit" class="btn btn-login w-100">Login</button>
     </form>
 

@@ -43,7 +43,7 @@ export class History implements OnInit {
 
   loadOrders() {
 
-    this.http.get(`https://localhost:7107/Treasure/OrderHistory?ClientID=${this.clientId}`)
+    this.http.get(`https://localhost:7107/api/Treasure/OrderHistory?ClientID=${this.clientId}`)
       .subscribe((data: any) => {
 
         this.orders = data;
@@ -77,7 +77,7 @@ export class History implements OnInit {
 
     if (!confirm("Clear all history?")) return;
 
-    this.http.post(`https://localhost:7107/Treasure/ClearHistory?ClientID=${this.clientId}`, {})
+    this.http.post(`https://localhost:7107/api/Treasure/ClearHistory?ClientID=${this.clientId}`, {})
       .subscribe((res: any) => {
 
         alert(res.message);
@@ -92,7 +92,7 @@ export class History implements OnInit {
 
     if (!confirm("Delete this order?")) return;
 
-    this.http.post(`https://localhost:7107/Treasure/DeleteOrder?OrderId=${id}`, {})
+    this.http.post(`https://localhost:7107/api/Treasure/DeleteOrder?OrderId=${id}`, {})
       .subscribe((res: any) => {
 
         alert(res.message);

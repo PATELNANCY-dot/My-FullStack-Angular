@@ -27,7 +27,7 @@ export class Contact {
     }
 
     const url =
-      `https://localhost:7107/Treasure/Contect?FullName=${encodeURIComponent(this.name)}&Email=${encodeURIComponent(this.email)}&messagees=${encodeURIComponent(this.message)}`;
+      `https://localhost:7107/api/Treasure/Contect?FullName=${encodeURIComponent(this.name)}&Email=${encodeURIComponent(this.email)}&messagees=${encodeURIComponent(this.message)}`;
 
     this.http.get<any>(url).subscribe({
       next: (data) => {

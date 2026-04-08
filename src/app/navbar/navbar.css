@@ -270,3 +270,22 @@ body {
   font-size: 18px;
   font-family: 'Poppins', sans-serif;
 }
+
+/* Active link color — overrides everything */
+.navbar .nav-link.active {
+  color: var(--gold) !important; /* make sure to use !important */
+  font-weight: 600;
+  text-decoration: none; /* no underline */
+}
+
+/* Optional: hover effect */
+.navbar .nav-link:hover {
+  color: var(--gold) !important;
+}
+
+
+
+.custom-heart {
+  color: #e53935 !important;
+  font-size: 14px;
+}

@@ -3,14 +3,7 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\cart",
-    "\\src\\app\\history",
-    "\\src\\app\\navbar",
-    "\\src\\app\\register",
-    "\\src\\app\\Service",
-    "\\src\\app\\treasures",
-    "\\src\\assets"
+    "\\src\\app\\navbar"
   ],
-  "SelectedNode": "\\src\\app\\treasures\\treasures.css",
   "PreviewInSolutionExplorer": false
 }

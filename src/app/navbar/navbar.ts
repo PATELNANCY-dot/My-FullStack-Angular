@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -11,69 +11,64 @@ import { UserService, User } from '../Service/user';
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css'],
   standalone: true,
-  imports: [RouterLink, FormsModule, CommonModule],
+  imports: [RouterLink, FormsModule, CommonModule, RouterModule],
 })
 export class Navbar implements OnInit {
 
   cartCount: number = 0;
-  user: any = {};
+  user: User | null = null;
+
   constructor(
     public userService: UserService,
     private http: HttpClient,
     private cd: ChangeDetectorRef,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    // Subscribe to user changes
+    this.userService.user$.subscribe(user => {
+      this.user = user;
+      this.cd.detectChanges(); // update template
+      if (this.isLoggedIn) {
+        this.loadCartCount(); // load cart when logged in
+      } else {
+        this.cartCount = 0; // reset cart on logout
+      }
+    });
 
-    this.user = this.userService.getUser();
-
-    if (this.isLoggedIn) {
-      this.loadCartCount();
-    }
+    // Subscribe to cart count changes
     this.cartService.cartCount$.subscribe(count => {
       this.cartCount = count;
       this.cd.detectChanges();
     });
-
   }
 
   loadCartCount() {
-
-    const user = this.userService.getUser();
-    if (!user) return;
-
-    const clientId = user.ClientID;
+    if (!this.user) return;
+    const clientId = this.user.ClientID;
 
     this.http
-      .get<any[]>(`https://localhost:7107/Treasure/Cart?ClientID=${clientId}`)
+      .get<any[]>(`https://localhost:7107/api/Treasure/Cart?ClientID=${clientId}`)
       .subscribe(res => {
-
-        const count = res.reduce(
-          (total, item) => total + Number(item.quantity),
-          0
-        );
-
-        setTimeout(() => {
-          this.cartService.setCartCount(count);
-        });
-
+        const count = res.reduce((total, item) => total + Number(item.quantity), 0);
+        this.cartService.setCartCount(count);
       });
-
   }
-
   get isLoggedIn(): boolean {
-    return this.userService.isLoggedIn();
+    return !!this.userService.getUser()?.isLoggedIn;
   }
+
 
   get userName(): string {
     const user = this.userService.getUser();
-    if (!user) return '';
-    return user.fullName || user.email.split('@')[0];
+    return user?.fullName || (user?.email?.split('@')[0]) || 'G';
   }
 
-  logout(): void {
+
+  logout() {
     this.userService.clearUser();
+    this.router.navigate(['/home']);
   }
-
 }

@@ -126,3 +126,15 @@ label {
 }
 
 
+/*eye*/
+
+/* Eye icon styling */
+.position-relative .bi {
+  font-size: 1.2rem;
+  color: #3d405b;
+}
+
+  .position-relative .bi:hover {
+    color: var(--green-dark);
+  }
+

@@ -1,5 +1,5 @@
-// src/Service/user.service.ts
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export interface User {
   ClientID: number;
@@ -13,42 +13,38 @@ export interface User {
 })
 export class UserService {
 
-  private user: User | null = null;
+  private _user$ = new BehaviorSubject<User | null>(this.getUserFromSession());
 
-  constructor() {
-    // Restore user after refresh
-    const storedUser = sessionStorage.getItem('user');
-    if (storedUser) {
-      this.user = JSON.parse(storedUser);
-    }
-  }
+  // Observable to subscribe to user changes
+  user$ = this._user$.asObservable();
+
+  constructor() { }
 
   // Set logged-in user
   setUser(user: User) {
-    this.user = user;
+    this._user$.next(user);
     sessionStorage.setItem('user', JSON.stringify(user));
   }
 
-  // Get user info
+  // Get current user (latest value)
   getUser(): User | null {
-    if (!this.user) {
-      const storedUser = sessionStorage.getItem('user');
-      if (storedUser) {
-        this.user = JSON.parse(storedUser);
-      }
-    }
-    return this.user;
+    return this._user$.value;
   }
 
   // Clear user info
   clearUser() {
-    this.user = null;
+    this._user$.next(null);
     sessionStorage.removeItem('user');
   }
 
-  // Check if user is logged in
+  // Check if logged in
   isLoggedIn(): boolean {
-    const user = this.getUser();
-    return user !== null && user.isLoggedIn;
+    return !!this._user$.value?.isLoggedIn;
+  }
+
+  // Restore user from session storage
+  private getUserFromSession(): User | null {
+    const storedUser = sessionStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
   }
 }

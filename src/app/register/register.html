@@ -48,16 +48,38 @@
         <label>Email Address</label>
         <input type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="Enter your email" required>
       </div>
-
-      <div class="mb-2">
+      <!-- Password with eye -->
+      <div class="mb-2 position-relative">
         <label>Password</label>
-        <input type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Create a password" required>
+        <input [(ngModel)]="password"
+               name="password"
+               [type]="hidePassword ? 'password' : 'text'"
+               class="form-control"
+               placeholder="Create a password"
+               required>
+        <i class="bi"
+           [ngClass]="hidePassword ? 'bi-eye' : 'bi-eye-slash'"
+           (click)="hidePassword = !hidePassword"
+           style="position: absolute; right: 10px; top: 38px; cursor: pointer;">
+        </i>
       </div>
 
-      <div class="mb-2">
+      <!-- Confirm Password with eye -->
+      <div class="mb-2 position-relative">
         <label>Confirm Password</label>
-        <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" class="form-control" placeholder="Re-enter your password" required>
+        <input [(ngModel)]="confirmPassword"
+               name="confirmPassword"
+               [type]="hideConfirmPassword ? 'password' : 'text'"
+               class="form-control"
+               placeholder="Re-enter your password"
+               required>
+        <i class="bi"
+           [ngClass]="hideConfirmPassword ? 'bi-eye' : 'bi-eye-slash'"
+           (click)="hideConfirmPassword = !hideConfirmPassword"
+           style="position: absolute; right: 10px; top: 38px; cursor: pointer;">
+        </i>
       </div>
+
 
       <button type="submit" class="btn btn-register w-100">
         Register
