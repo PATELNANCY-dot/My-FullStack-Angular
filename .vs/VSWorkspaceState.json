@@ -3,7 +3,9 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\navbar"
+    "\\src\\app\\navbar",
+    "\\src\\app\\wish-list"
   ],
+  "SelectedNode": "\\src\\app\\navbar\\navbar.html",
   "PreviewInSolutionExplorer": false
 }
