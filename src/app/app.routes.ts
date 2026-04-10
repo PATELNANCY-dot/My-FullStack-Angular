@@ -8,7 +8,8 @@ import { Cart } from './cart/cart';
 import { History } from './history/history';
 import { Login } from './login/login';
 import { Register } from './register/register';
-import { WishList } from './wish-list/wish-list'
+import { WishList } from './wish-list/wish-list';
+
 
 export const routes: Routes = [
   {
@@ -27,5 +28,13 @@ export const routes: Routes = [
   },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
-  { path: '**', redirectTo: '' }
+
+  // ADMIN MODULE
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin-module').then(m => m.AdminModule)
+  },
+  { path: '**', redirectTo: '' },
+
 ];
+

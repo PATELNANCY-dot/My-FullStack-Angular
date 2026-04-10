@@ -1,0 +1,98 @@
+<div class="dashboard-container">
+
+  <!-- Header -->
+  <div class="dashboard-header d-flex justify-content-between align-items-center mb-4">
+    <h2>Admin Dashboard</h2>
+    <button class="btn btn-gold" routerLink="/admin/product-add">Add Product</button>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <div class="stats-card">
+        <div class="icon bg-primary">
+          <i class="bi bi-box-seam"></i>
+        </div>
+        <div class="details">
+          <h3>{{ productsCount }}</h3>
+          <p>Products</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="stats-card">
+        <div class="icon bg-success">
+          <i class="bi bi-cart-check"></i>
+        </div>
+        <div class="details">
+          <h3>{{ ordersCount }}</h3>
+          <p>Orders</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="stats-card">
+        <div class="icon bg-warning">
+          <i class="bi bi-people"></i>
+        </div>
+        <div class="details">
+          <h3>{{ usersCount }}</h3>
+          <p>Users</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts / Analytics -->
+
+  <div class="row g-4 mb-4">
+
+    <!-- LEFT COLUMN (2 ROWS) -->
+    <div class="col-md-6 d-flex flex-column gap-4">
+
+      <!-- 📉 Orders Trend -->
+      <div class="chart-card p-3 flex-fill">
+        <h5>📉 Orders Trend</h5>
+        <canvas id="ordersChart" style="height: 300px;"></canvas>
+      </div>
+
+      <!-- 📦 Top Products -->
+      <div class="chart-card p-3 flex-fill">
+        <h5>📦 Top Products</h5>
+        <canvas id="topProductsChart" style="height: 300px;"></canvas>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN (FULL HEIGHT) -->
+    <div class="col-md-6">
+      <div class="chart-card p-3 h-100">
+        <h5>📊 Stock Status</h5>
+        <canvas id="stockChart" style="height: 100%; min-height: 650px;"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="popup-overlay" *ngIf="showPopup">
+
+  <div class="popup-box">
+
+    <!-- ❌ CLOSE BUTTON (TOP RIGHT) -->
+    <button class="close-btn" (click)="closePopup()">×</button>
+
+    <h4>{{ popupTitle }}</h4>
+
+    <ul>
+      <li *ngFor="let p of selectedProducts">
+        {{ p.productname }} ({{ p.productquentity }})
+      </li>
+    </ul>
+
+  </div>
+
+</div>

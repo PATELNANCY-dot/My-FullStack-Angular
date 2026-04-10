@@ -1,15 +1,14 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { WishlistService } from '../Service/wishlist.service';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../Service/user';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 
 interface WishlistItem {
   productID: number;
   productName: string;
   productImage: string;
-  note?: string;      
+  note?: string;
   tags?: string[];
   showTagPopup?: boolean;
   showNote?: boolean;
@@ -28,7 +27,6 @@ export class WishList implements OnInit {
   clientId!: number;
   availableTags = ['Gift', 'Home', 'Outdoor', 'Office', 'Birthday']; // example tags
 
-
   constructor(
     private wishlistService: WishlistService,
     private userService: UserService,
@@ -38,7 +36,6 @@ export class WishList implements OnInit {
   ngOnInit() {
     const user = this.userService.getUser();
     this.clientId = user?.ClientID || 0;
-    console.log('ClientID:', this.clientId);
     this.loadWishlist();
   }
 
@@ -53,9 +50,6 @@ export class WishList implements OnInit {
           tags: item.tags ? item.tags.split(',') : [],
           showTagPopup: false
         }));
-        console.log("Mapped wishlist:", this.wishlist);
-
-        // Force Angular to update the UI immediately
         this.cdr.detectChanges();
       }
     });
@@ -68,13 +62,14 @@ export class WishList implements OnInit {
       Note: item.note || '',
       Tags: (item.tags || []).join(',')
     };
+    item.showNote = false;
 
     this.wishlistService.addOrUpdateWishlist(payload).subscribe((res: any) => {
       if (res.success) {
-        alert('Wishlist updated successfully!');
-        item.showNote = false;
+        
         this.cdr.detectChanges();
       }
+      // Removed alert; optionally handle errors silently
     });
   }
 
@@ -85,27 +80,21 @@ export class WishList implements OnInit {
         this.wishlist = this.wishlist.filter(w => w.productID !== item.productID);
         this.cdr.detectChanges();
       }
+      // Removed alert; optionally handle errors silently
     });
   }
 
   toggleTag(item: WishlistItem, tag: string, checked: boolean) {
-    if (!item.tags) {
-      item.tags = []; // initialize if undefined
-    }
-
-    if (checked) {
-      // add the tag if not already present
-      if (!item.tags.includes(tag)) {
-        item.tags.push(tag);
-      }
+    if (!item.tags) item.tags = [];
+    if (checked && !item.tags.includes(tag)) {
+      item.tags.push(tag);
     } else {
-      // remove the tag
       item.tags = item.tags.filter(t => t !== tag);
     }
   }
+
   toggleNote(item: WishlistItem) {
     item.showNote = !item.showNote;
-    // Optional: close other notes when opening one
     this.wishlist.forEach(w => {
       if (w.productID !== item.productID) w.showNote = false;
     });

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../Service/user';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
+declare var Swal: any; // for SweetAlert2 CDN
 
 @Component({
   selector: 'app-history',
@@ -18,9 +19,8 @@ export class History implements OnInit {
   orders: any[] = [];
   groupedOrders: any = {};
 
-  sortOrders = (a: any, b: any): number => {
-    return Number(b.key) - Number(a.key);
-  };
+  sortOrders = (a: any, b: any): number => Number(b.key) - Number(a.key);
+
   constructor(
     private http: HttpClient,
     private userService: UserService,
@@ -28,37 +28,39 @@ export class History implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     const user = this.userService.getUser();
 
     if (!user) {
-      alert("Please login first");
+      Swal.fire({
+        icon: 'warning',
+        title: 'Login Required',
+        text: 'Please login first!',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-button'
+        }
+      });
       return;
     }
 
     this.clientId = user.ClientID;
-
     this.loadOrders();
   }
 
   loadOrders() {
-
     this.http.get(`https://localhost:7107/api/Treasure/OrderHistory?ClientID=${this.clientId}`)
       .subscribe((data: any) => {
-
         this.orders = data;
         this.groupOrders();
         this.cdr.detectChanges();
       });
-
   }
 
   groupOrders() {
-
     this.groupedOrders = {};
 
     this.orders.forEach(item => {
-
       if (!this.groupedOrders[item.orderId]) {
         this.groupedOrders[item.orderId] = {
           date: item.orderDate,
@@ -66,40 +68,77 @@ export class History implements OnInit {
           items: []
         };
       }
-
       this.groupedOrders[item.orderId].items.push(item);
-
     });
-
   }
 
   clearHistory() {
-
-    if (!confirm("Clear all history?")) return;
-
-    this.http.post(`https://localhost:7107/api/Treasure/ClearHistory?ClientID=${this.clientId}`, {})
-      .subscribe((res: any) => {
-
-        alert(res.message);
-        this.loadOrders();
-
-      });
-
+    Swal.fire({
+      icon: 'warning',
+      title: 'Confirm',
+      text: 'Clear all history?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, clear it',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        popup: 'my-swal-popup',
+        title: 'my-swal-title',
+        confirmButton: 'my-swal-button',
+        cancelButton: 'my-swal-button'
+      }
+    }).then((result: any) => { // use 'any' for CDN
+      if (result.isConfirmed) {
+        this.http.post(`https://localhost:7107/api/Treasure/ClearHistory?ClientID=${this.clientId}`, {})
+          .subscribe((res: any) => {
+            Swal.fire({
+              icon: res.success ? 'success' : 'error',
+              title: 'History',
+              text: res.message,
+              customClass: {
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-button'
+              }
+            });
+            this.loadOrders();
+          });
+      }
+    });
   }
-  deleteOrder(orderId: any) {
 
+  deleteOrder(orderId: any) {
     const id = Number(orderId);
 
-    if (!confirm("Delete this order?")) return;
-
-    this.http.post(`https://localhost:7107/api/Treasure/DeleteOrder?OrderId=${id}`, {})
-      .subscribe((res: any) => {
-
-        alert(res.message);
-        this.loadOrders();
-
-      });
-
+    Swal.fire({
+      icon: 'warning',
+      title: 'Confirm',
+      text: 'Delete this order?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        popup: 'my-swal-popup',
+        title: 'my-swal-title',
+        confirmButton: 'my-swal-button',
+        cancelButton: 'my-swal-button'
+      }
+    }).then((result: any) => { // use 'any' for CDN
+      if (result.isConfirmed) {
+        this.http.post(`https://localhost:7107/api/Treasure/DeleteOrder?OrderId=${id}`, {})
+          .subscribe((res: any) => {
+            Swal.fire({
+              icon: res.success ? 'success' : 'error',
+              title: 'Order',
+              text: res.message,
+              customClass: {
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-button'
+              }
+            });
+            this.loadOrders();
+          });
+      }
+    });
   }
-
 }

@@ -1,0 +1,76 @@
+<div class="add-product-container">
+
+  <div class="header mb-4">
+    <h2>Add New Product</h2>
+  </div>
+
+  <div class="form-card">
+
+    <form (ngSubmit)="addProduct()">
+
+      <!-- Product Name -->
+      <div class="mb-3">
+        <label class="form-label">Product Name</label>
+        <input type="text"
+               class="form-control"
+               [(ngModel)]="productname"
+               name="productname"
+               placeholder="Enter product name">
+      </div>
+
+      <!-- Price -->
+      <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input type="number"
+               class="form-control"
+               [(ngModel)]="price"
+               name="price"
+               placeholder="Enter price">
+      </div>
+
+      <!-- Stock -->
+      <div class="mb-3">
+        <label class="form-label">Stock Quantity</label>
+        <input type="number"
+               class="form-control"
+               [(ngModel)]="productquentity"
+               name="productquentity"
+               placeholder="Enter stock quantity">
+      </div>
+
+      <!-- Product Image -->
+      <div class="mb-3">
+        <label class="form-label">Product Image</label>
+        <input type="file"
+               class="form-control"
+               (change)="onFileSelected($event)">
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control"
+                  rows="4"
+                  [(ngModel)]="productdescription"
+                  name="productdescription"
+                  placeholder="Enter product description"></textarea>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex gap-3">
+
+        <button type="button" (click)="addProduct()" class="btn btn-success">
+          Add Product
+        </button>
+
+        <button routerLink="/admin/product-list" type="button" class="btn btn-secondary">
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

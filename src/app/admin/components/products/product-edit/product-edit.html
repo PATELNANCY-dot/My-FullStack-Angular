@@ -1,0 +1,61 @@
+<div *ngIf="loading" class="loader">
+  Loading product details...
+</div>
+
+
+
+
+<div class="page">
+
+  <a routerLink="/admin/product-list" class="back-arrow">
+    ← Back
+  </a>
+  <div class="card">
+
+    <div class="header">
+      <h2>Edit Product</h2>
+      <p>Update product details below</p>
+    </div>
+
+    <form (ngSubmit)="updateProduct()">
+
+      <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" [(ngModel)]="productname" name="productname" required>
+      </div>
+
+      <div class="form-group">
+        <label>Price</label>
+        <input type="number" [(ngModel)]="price" name="price" required>
+      </div>
+
+      <div class="form-group">
+        <label>Stock Quantity</label>
+        <input type="number"
+               class="form-control"
+               [(ngModel)]="productquentity"
+               name="productquentity"
+               placeholder="Enter stock quantity">
+      </div>
+
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea [(ngModel)]="productdescription" name="productdescription"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Change Image</label>
+        <input type="file" (change)="onFileChange($event)">
+      </div>
+
+      <div class="image-box" *ngIf="existingImage">
+        <img [src]="existingImage" />
+        <span>Current Image</span>
+      </div>
+
+      <button type="submit">Update Product</button>
+
+    </form>
+  </div>
+</div>

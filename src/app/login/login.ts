@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router'
 
+declare var Swal: any;
+
 @Component({
   selector: 'app-login',
   imports: [FormsModule, RouterLink, CommonModule],
@@ -16,6 +18,9 @@ export class Login {
   email = '';
   password = '';
   hidePassword = true;
+
+
+
   constructor(private http: HttpClient, private userService: UserService, private router: Router) { }
 
   loginUser() {
@@ -32,15 +37,39 @@ export class Login {
             email: data.email,
             isLoggedIn: true
           });
-          alert('Login successful!');
-          this.router.navigate(['/home'])
+          this.showAlert('success', 'Login Successful', 'Welcome back!');
+          this.router.navigate(['/home']);
+
         } else {
-          alert('Invalid email or password!');
+          this.showAlert('error', 'Login Failed', 'Invalid email or password')
+
         }
       },
       error: (err) => {
         console.error('HTTP error:', err);
-        alert('Login failed');
+        Swal.fire({
+          icon: 'error',
+          title: 'Server Error',
+          text: 'Something went wrong',
+          customClass: {
+            popup: 'my-swal-popup',
+            title: 'my-swal-title',
+            confirmButton: 'my-swal-button'
+          }
+        });
+      }
+    });
+  }
+
+  showAlert(icon: string, title: string, text: string) {
+    Swal.fire({
+      icon: icon,
+      title: title,
+      text: text,
+      customClass: {
+        popup: 'my-swal-popup',
+        title: 'my-swal-title',
+        confirmButton: 'my-swal-button'
       }
     });
   }

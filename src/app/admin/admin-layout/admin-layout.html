@@ -1,0 +1,62 @@
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h3 class="logo">Admin Panel</h3>
+
+    <ul>
+
+      <!-- Dashboard -->
+      <li routerLink="/admin/dashboard" routerLinkActive="active">
+        <i class="bi bi-speedometer2"></i>
+        Dashboard
+      </li>
+
+      <!-- Products Dropdown -->
+      <li class="dropdown">
+
+        <div class="dropdown-title" (click)="toggleProductMenu()">
+          <span>
+            <i class="bi bi-box-seam"></i>
+            Products
+          </span>
+
+          <i class="bi" [ngClass]="productMenuOpen ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+        </div>
+
+        <ul class="submenu" *ngIf="productMenuOpen">
+
+          <li routerLink="/admin/product-list" routerLinkActive="active">
+            <i class="bi bi-list"></i>
+            Product List
+          </li>
+
+          <li routerLink="/admin/product-add" routerLinkActive="active">
+            <i class="bi bi-plus-circle"></i>
+            Add Product
+          </li>
+
+        </ul>
+
+      </li>
+      <!-- Orders -->
+      <li routerLink="/admin/order-list" routerLinkActive="active">
+        <i class="bi bi-bag"></i>
+        Orders
+      </li>
+
+      <!-- Users -->
+      <li routerLink="/admin/user-list" routerLinkActive="active">
+        <i class="bi bi-people"></i>
+        Users
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

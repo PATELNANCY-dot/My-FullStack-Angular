@@ -32,8 +32,8 @@
   .section .lead {
     font-family: 'Poppins', sans-serif;
     font-size: 1.1rem;
-    font-weight:bold;
-    color: var(--emerald);
+    font-weight: bold;
+    color: #5c3d2e;
     opacity: 0.8;
     max-width: 700px;
     margin: auto;
@@ -76,19 +76,17 @@
 
 
 .btn-gold {
-  background-color: var(--gold);
-  color: var(--deep-blue);
+  background-color: #52796f;
+  color: #ffff;
   border-radius: 30px;
   padding: 10px 26px;
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
-  transition: all .3s ease;
 }
 
   .btn-gold:hover {
-    background: var(--rose);
+    background: #52796f;
     color: #fff;
-    transform: translateY(-2px);
   }
 
 /* CONTACT INFO CARDS */

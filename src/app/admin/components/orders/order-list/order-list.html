@@ -1,0 +1,132 @@
+<div class="page-container">
+
+  <h2 class="page-title">Orders</h2>
+
+  <div class="table-container">
+
+    <table class="table table-hover">
+
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>User</th>
+          <th>Total</th>
+          <th>Payment Mode</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let order of orders">
+
+          <td>#{{ order.orderId }}</td>
+
+          <td>{{ order.customerName }}</td>
+
+          <td>₹{{ order.totalAmount }}</td>
+
+          <td>₹{{ order.paymentMethod }}</td>
+
+          <td>
+            <span class="status"
+                  [ngClass]="{
+          'completed': order.status === 'Completed',
+          'pending': order.status === 'Placed'
+        }">
+              {{ order.status }}
+            </span>
+          </td>
+
+          <td>
+            {{ order.orderDate | date:'dd MMM yyyy' }}
+          </td>
+
+          <td>
+            <button class="btn-view" (click)="openOrder(order)">
+              View
+            </button>
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+<div class="modal-backdrop" *ngIf="showModal && selectedOrder">
+
+  <div class="modal-box">
+
+    <button class="btn-close" (click)="closeModal()">X</button>
+    <h2>Order Details</h2>
+
+    <div class="order-info">
+
+      <div class="info-row">
+        <span class="label">Order ID</span>
+        <span class="value">#{{ selectedOrder.orderId }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">User</span>
+        <span class="value">{{ selectedOrder.customerName }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Email</span>
+        <span class="value">{{ selectedOrder.customerEmail }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Date</span>
+        <span class="value">
+          {{ selectedOrder.orderDate | date:'dd MMM yyyy HH:mm' }}
+        </span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Address</span>
+        <span class="value">{{ selectedOrder.customerAddress }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Payment</span>
+        <span class="value">{{ selectedOrder.paymentMethod }}</span>
+      </div>
+
+
+    </div>
+    <hr>
+
+    <h3>Item Details</h3>
+
+    <div class="items-container">
+
+      <div *ngFor="let item of selectedOrder?.items">
+
+        <img [src]="'https://localhost:7107/images/' + item.productImage" width="80" />
+
+        <p><b>Name:</b> {{ item.productName }}</p>
+        <p>Qty: {{ item.quantity }}</p>
+        <p>Price: ₹{{ item.price }}</p>
+
+        <hr>
+
+      </div>
+
+    </div>
+
+    <hr>
+
+    <h3>Total Order Amount</h3>
+    <p>₹{{ selectedOrder.totalAmount }}</p>
+
+
+  </div>
+
+</div>

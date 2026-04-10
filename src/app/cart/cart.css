@@ -99,6 +99,7 @@
   margin-bottom: 10px;
 }
 
+
 /* ===== MODAL BUTTONS ===== */
 #productModal .modal-footer .btn-primary {
   background: var(--rose);
@@ -126,4 +127,42 @@
   object-fit: contain;
   border-radius: 12px;
   cursor: zoom-in;
+}
+
+#productModal .low-stock {
+  color: #b07a3f;
+  font-weight: 500;
+}
+
+#productModal .out-stock {
+  color: #C65D5D;
+  font-weight: 500;
+}
+
+
+.checkout-modal {
+  background: #dad7cd;
+  border-radius: 18px;
+}
+
+.checkout-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+  .checkout-item img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+.confirm-btn {
+  background: var(--rose);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  color: white;
 }

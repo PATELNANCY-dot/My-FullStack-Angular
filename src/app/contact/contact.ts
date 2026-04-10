@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { NgForm } from '@angular/forms';
 
+declare var Swal: any;
+
 @Component({
   selector: 'app-contact',
   standalone: true,
@@ -22,7 +24,18 @@ export class Contact {
   submitForm(form: NgForm) {
 
     if (!this.name || !this.email || !this.message) {
-      alert("Please fill all fields!");
+
+      Swal.fire({
+        icon: 'warning',
+        title: 'Missing Fields',
+        text: 'Please fill all fields!',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-button'
+        }
+      });
+
       return;
     }
 
@@ -31,14 +44,34 @@ export class Contact {
 
     this.http.get<any>(url).subscribe({
       next: (data) => {
-        alert(data.message);
 
-        // clear all inputs
+        Swal.fire({
+          icon: 'success',
+          title: 'Message Sent',
+          text: data.message,
+          customClass: {
+            popup: 'my-swal-popup',
+            title: 'my-swal-title',
+            confirmButton: 'my-swal-button'
+          }
+        });
+
         form.reset();
       },
+
       error: (err) => {
         console.error(err);
-        alert("Error sending message. Please try again.");
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error sending message. Please try again.',
+          customClass: {
+            popup: 'my-swal-popup',
+            title: 'my-swal-title',
+            confirmButton: 'my-swal-button'
+          }
+        });
       }
     });
   }

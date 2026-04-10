@@ -66,7 +66,7 @@
 
         <!-- MAX STOCK REACHED -->
         <p *ngIf="p.quantityInCart >= p.productquentity && p.productquentity > 0"
-           class="low-stock">
+           class="low-stock" style="color: #52796f">
           Maximum stock reached
         </p>
 
@@ -136,9 +136,14 @@
         <p>{{ selectedProduct.productdescription }}</p>
         <p><strong>Price:</strong> RS. {{ selectedProduct.price }}</p>
 
-        <p *ngIf="selectedProduct.productquentity === 0" class="text-danger">Out of Stock</p>
-        <p *ngIf="selectedProduct.productquentity > 0 && selectedProduct.productquentity <= 5" class="text-warning">
+        <p *ngIf="selectedProduct.productquentity === 0" class="out-stock" style=" color: #C65D5D;">Out of Stock</p>
+        <p *ngIf="selectedProduct.productquentity > 0 && selectedProduct.productquentity <= 5" class="low-stock" style=" color: #b07a3f;">
           Only {{selectedProduct.productquentity}} remaining
+        </p>
+        <!-- MAX STOCK REACHED -->
+        <p *ngIf="selectedProduct.quantityInCart >= selectedProduct.productquentity && selectedProduct.productquentity > 0"
+           class="low-stock" style="color: #52796f">
+          Maximum stock reached
         </p>
 
       </div>

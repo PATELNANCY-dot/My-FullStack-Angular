@@ -279,6 +279,16 @@
   cursor: zoom-in;
 }
 
+#productModal .low-stock {
+  color: #b07a3f;
+  font-weight: 500;
+}
+
+#productModal .out-stock {
+  color: #C65D5D;
+  font-weight: 500;
+}
+
 
 .treasure-card .wishlist-heart {
   position: absolute;

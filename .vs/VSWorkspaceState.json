@@ -3,9 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\navbar",
-    "\\src\\app\\wish-list"
+    "\\src\\app\\admin",
+    "\\src\\app\\admin\\admin-layout",
+    "\\src\\app\\admin\\components",
+    "\\src\\app\\admin\\components\\dashboard\\dashboard",
+    "\\src\\app\\admin\\components\\orders",
+    "\\src\\app\\admin\\components\\products",
+    "\\src\\app\\cart"
   ],
-  "SelectedNode": "\\src\\app\\navbar\\navbar.html",
+  "SelectedNode": "\\src\\app\\cart\\cart.ts",
   "PreviewInSolutionExplorer": false
 }

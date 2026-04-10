@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../Service/user';
-import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../Service/cart.service';
 import GLightbox from 'glightbox';
 import { Modal } from 'bootstrap';
+import { FormsModule } from '@angular/forms';
 
+declare var Swal: any;
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './cart.html',
   styleUrls: ['./cart.css']
 })
@@ -21,6 +22,15 @@ export class Cart implements OnInit {
   cart: any[] = [];
   totalPrice: number = 0;
   user: any;
+  selectedProduct: any = null;
+  lightbox: any;
+
+
+  customerName = '';
+  customerEmail = '';
+  customerAddress = '';
+  paymentMethod = '';
+
 
   constructor(
     private http: HttpClient,
@@ -31,24 +41,28 @@ export class Cart implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.user = this.userService.getUser();
 
     if (!this.user || !this.user.isLoggedIn) {
-      alert("Please login first!");
-      window.location.href = "/login";
+      Swal.fire({
+        icon: 'warning',
+        title: 'Login Required',
+        text: 'Please login first!',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-button'
+        }
+      }).then(() => window.location.href = "/login");
       return;
     }
 
     this.loadCart();
   }
 
-  // LOAD CART
   loadCart() {
-
     this.http.get<any>(`https://localhost:7107/api/Treasure/Cart?ClientID=${this.user.ClientID}`)
       .subscribe(data => {
-
         this.cart = data.map((item: any) => ({
           cartid: item.cartid,
           productid: item.productid,
@@ -56,38 +70,28 @@ export class Cart implements OnInit {
           price: Number(item.price) || 0,
           quantity: Number(item.quantity) || 1,
           imgSrc: item.productimage,
-          productquentity: item.productquentity
+          productquentity: item.productquentity,
+          productdescription: item.productdescription,
         }));
         this.calculateTotal();
         this.updateCartCount();
         this.cdr.detectChanges();
-
       });
   }
 
-  // CALCULATE TOTAL
   calculateTotal() {
-
-    this.totalPrice = this.cart.reduce((total, item) => {
-      return total + (item.price * item.quantity);
-    }, 0);
-
+    this.totalPrice = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   }
 
-  // UPDATE QUANTITY
   updateCartQuantity(cartid: number, change: number) {
-
     const item = this.cart.find(c => c.cartid === cartid);
     if (!item) return;
 
     const newQty = item.quantity + change;
 
-    // if quantity becomes 0 remove item
     if (newQty === 0) {
-
       this.removeCartItem(cartid);
 
-      // close modal if open
       const modalEl = document.getElementById('productModal');
       if (modalEl) {
         const modal = Modal.getInstance(modalEl);
@@ -97,107 +101,156 @@ export class Cart implements OnInit {
       return;
     }
 
-    this.http.get<any>(
-      `https://localhost:7107/api/Treasure/UpdateCartQuantity?Cartid=${cartid}&Quantity=${newQty}`
-    ).subscribe({
-      next: (res) => {
-
-        if (res.success) {
-          item.quantity = newQty;
-
-          this.calculateTotal();
-          this.updateCartCount();
-          this.cdr.detectChanges();
+    this.http.get<any>(`https://localhost:7107/api/Treasure/UpdateCartQuantity?Cartid=${cartid}&Quantity=${newQty}`)
+      .subscribe({
+        next: (res) => {
+          if (res.success) {
+            item.quantity = newQty;
+            this.calculateTotal();
+            this.updateCartCount();
+            this.cdr.detectChanges();
+          }
+        },
+        error: (err) => {
+          console.error(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to update quantity!',
+            customClass: {
+              popup: 'my-swal-popup',
+              title: 'my-swal-title',
+              confirmButton: 'my-swal-button'
+            }
+          });
         }
-
-      },
-      error: (err) => {
-        console.error(err);
-      }
-
-    });
-
+      });
   }
 
-  // REMOVE ITEM
   removeCartItem(cartid: number) {
-
-    // Remove instantly from UI
     this.cart = this.cart.filter(item => item.cartid !== cartid);
     this.calculateTotal();
     this.updateCartCount();
 
-    // Remove from database
-    this.http.get<any>(
-      `https://localhost:7107/api/Treasure/RemoveItem?Cartid=${cartid}`
-    ).subscribe(res => {
-
-      if (!res.success) {
-        alert(res.message);
-        this.loadCart();
-      }
-
-    });
-
+    this.http.get<any>(`https://localhost:7107/api/Treasure/RemoveItem?Cartid=${cartid}`)
+      .subscribe(res => {
+        if (!res.success) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: res.message,
+            customClass: {
+              popup: 'my-swal-popup',
+              title: 'my-swal-title',
+              confirmButton: 'my-swal-button'
+            }
+          });
+          this.loadCart();
+        }
+      });
   }
 
-  // BUY NOW
   buyNow() {
 
     if (this.cart.length === 0) {
-      alert("Cart is empty");
+      Swal.fire({
+        icon: 'warning',
+        title: 'Cart Empty',
+        text: 'Your cart is empty'
+      });
+      return;
+    }
+
+    // auto fill user info
+    this.customerName = this.user?.ClientName || '';
+    this.customerEmail = this.user?.Email || '';
+
+    const modalEl = document.getElementById('checkoutModal');
+
+    if (modalEl) {
+      const modal = new Modal(modalEl);
+      this.cdr.detectChanges();
+      modal.show();
+    }
+
+
+  }
+
+  confirmOrder() {
+
+    if (
+      !this.customerName?.trim() ||
+      !this.customerEmail?.trim() ||
+      !this.customerAddress?.trim() ||
+      !this.paymentMethod
+    ) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Missing Details',
+        text: 'Please fill all fields'
+      });
       return;
     }
 
     this.http.post<any>(
-      `https://localhost:7107/api/Treasure/PlaceOrder?ClientID=${this.user.ClientID}`, {}
+      `https://localhost:7107/api/Treasure/PlaceOrder`,
+      {
+        ClientID: this.user.ClientID,
+        CustomerName: this.customerName,
+        CustomerEmail: this.customerEmail,
+        CustomerAddress: this.customerAddress,
+        PaymentMethod: this.paymentMethod
+      }
     ).subscribe({
+
       next: (res) => {
 
-        // Use the message returned by SQL
         if (res.success) {
-          // If SQL returned adjustment messages, show them
-          alert(res.message);
 
-          // If the message is "Order placed successfully!", clear cart
-          if (res.message.includes('Order placed successfully')) {
+          /* ✅ CLOSE CHECKOUT MODAL FIRST */
+          const modalEl = document.getElementById('checkoutModal');
+          if (modalEl) {
+            const modal = Modal.getInstance(modalEl);
+            modal?.hide();
+          }
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Order Placed',
+            text: res.message
+          }).then(() => {
+
             this.cart = [];
             this.totalPrice = 0;
             this.updateCartCount();
-            this.router.navigate(['./history']);
-          } else {
-            // If quantities were adjusted, reload cart so user sees correct quantities
-            this.loadCart();
-          }
 
-        } else {
-          // Show error message from backend
-          alert(res.message);
+            this.router.navigate(['/history']);
+
+          });
+
         }
 
       },
+
       error: (err) => {
-        console.error("Place order failed", err);
-        alert("Failed to place order.");
+        console.error(err);
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Order Failed',
+          text: 'Failed to place order.'
+        });
+
       }
+
     });
 
   }
 
   updateCartCount() {
-
-    const count = this.cart.reduce(
-      (total, item) => total + Number(item.quantity),
-      0
-    );
-
+    const count = this.cart.reduce((total, item) => total + Number(item.quantity), 0);
     this.cartService.setCartCount(count);
-
   }
-
-  selectedProduct: any = null;
-
-  lightbox: any;
 
   openModal(product: any) {
     this.selectedProduct = product;
@@ -208,16 +261,13 @@ export class Cart implements OnInit {
       modal.show();
     }
 
-    // wait for modal to render DOM
     setTimeout(() => {
-      if (this.lightbox) {
-        this.lightbox.destroy();
-      }
-
-      this.lightbox = GLightbox({
-        selector: '.glightbox'
-      });
-
+      if (this.lightbox) this.lightbox.destroy();
+      this.lightbox = GLightbox({ selector: '.glightbox' });
     }, 200);
+  }
+
+  trackByCart(index: number, item: any) {
+    return item.cartid;
   }
 }
