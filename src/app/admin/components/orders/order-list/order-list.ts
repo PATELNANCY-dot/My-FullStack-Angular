@@ -49,22 +49,38 @@ export class OrderList {
 
   openOrder(order: any) {
 
-    const orderId = order.orderId || order.OrderId;
+    const orderId = order?.orderId ?? order?.OrderId;
 
+    if (!orderId) {
+      console.log('OrderId missing');
+      return;
+    }
+
+    // 1. Open modal first
+    this.showModal = true;
+
+    // 2. Set basic order immediately
+    this.selectedOrder = {
+      ...order,
+      items: []
+    };
+
+    // 3. Force UI update immediately
+    this.cdr.detectChanges();
+
+    // 4. Call API
     this.http.get<any[]>(
       `https://localhost:7107/api/Admin/GetOrderItemsWithProductDetails/${orderId}`
     ).subscribe({
       next: (res) => {
 
-        console.log('Order Items API Result:', res);
-        console.log('Clicked Order:', order);
+        console.log('Items received:', res);
 
-        this.selectedOrder = {
-          ...order,
-          items: res   // ✅ now contains productName + productImage
-        };
+        // 5. Update data
+        this.selectedOrder.items = res;
 
-        this.showModal = true;
+        // 6. Force UI refresh again
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.log('Order Items API Error:', err);
@@ -72,7 +88,7 @@ export class OrderList {
     });
   }
 
-  // ✅ CLOSE MODAL
+  //  CLOSE MODAL
   closeModal() {
     this.showModal = false;
     this.selectedOrder = null;

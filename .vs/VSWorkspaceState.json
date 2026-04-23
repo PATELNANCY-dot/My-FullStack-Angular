@@ -6,11 +6,9 @@
     "\\src\\app\\admin",
     "\\src\\app\\admin\\admin-layout",
     "\\src\\app\\admin\\components",
-    "\\src\\app\\admin\\components\\dashboard\\dashboard",
     "\\src\\app\\admin\\components\\orders",
-    "\\src\\app\\admin\\components\\products",
-    "\\src\\app\\cart"
+    "\\src\\app\\admin\\components\\orders\\order-list",
+    "\\src\\app\\admin\\components\\products"
   ],
-  "SelectedNode": "\\src\\app\\cart\\cart.ts",
   "PreviewInSolutionExplorer": false
 }

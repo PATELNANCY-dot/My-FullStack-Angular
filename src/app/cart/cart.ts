@@ -25,12 +25,10 @@ export class Cart implements OnInit {
   selectedProduct: any = null;
   lightbox: any;
 
-
   customerName = '';
   customerEmail = '';
   customerAddress = '';
   paymentMethod = '';
-
 
   constructor(
     private http: HttpClient,
@@ -128,9 +126,21 @@ export class Cart implements OnInit {
   }
 
   removeCartItem(cartid: number) {
+
     this.cart = this.cart.filter(item => item.cartid !== cartid);
     this.calculateTotal();
     this.updateCartCount();
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Item Removed',
+      text: 'Item removed from cart.',
+      customClass: {
+        popup: 'my-swal-popup',
+        title: 'my-swal-title',
+        confirmButton: 'my-swal-button'
+      }
+    });
 
     this.http.get<any>(`https://localhost:7107/api/Treasure/RemoveItem?Cartid=${cartid}`)
       .subscribe(res => {
@@ -156,12 +166,16 @@ export class Cart implements OnInit {
       Swal.fire({
         icon: 'warning',
         title: 'Cart Empty',
-        text: 'Your cart is empty'
+        text: 'Your cart is empty',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-button'
+        }
       });
       return;
     }
 
-    // auto fill user info
     this.customerName = this.user?.ClientName || '';
     this.customerEmail = this.user?.Email || '';
 
@@ -172,8 +186,6 @@ export class Cart implements OnInit {
       this.cdr.detectChanges();
       modal.show();
     }
-
-
   }
 
   confirmOrder() {
@@ -187,7 +199,12 @@ export class Cart implements OnInit {
       Swal.fire({
         icon: 'warning',
         title: 'Missing Details',
-        text: 'Please fill all fields'
+        text: 'Please fill all fields',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-button'
+        }
       });
       return;
     }
@@ -207,7 +224,6 @@ export class Cart implements OnInit {
 
         if (res.success) {
 
-          /* ✅ CLOSE CHECKOUT MODAL FIRST */
           const modalEl = document.getElementById('checkoutModal');
           if (modalEl) {
             const modal = Modal.getInstance(modalEl);
@@ -217,7 +233,12 @@ export class Cart implements OnInit {
           Swal.fire({
             icon: 'success',
             title: 'Order Placed',
-            text: res.message
+            text: res.message,
+            customClass: {
+              popup: 'my-swal-popup',
+              title: 'my-swal-title',
+              confirmButton: 'my-swal-button'
+            }
           }).then(() => {
 
             this.cart = [];
@@ -238,7 +259,12 @@ export class Cart implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Order Failed',
-          text: 'Failed to place order.'
+          text: 'Failed to place order.',
+          customClass: {
+            popup: 'my-swal-popup',
+            title: 'my-swal-title',
+            confirmButton: 'my-swal-button'
+          }
         });
 
       }
