@@ -41,6 +41,20 @@ export class Treasures implements OnInit {
   user: any;
   lightbox: any;
 
+  currentPage = 1;
+  itemsPerPage = 8;
+
+
+
+  get paginatedProducts() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return this.products.slice(start, start + this.itemsPerPage);
+  }
+
+  get totalPages() {
+    return Math.ceil(this.products.length / this.itemsPerPage);
+  }
+
   constructor(
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
@@ -72,16 +86,20 @@ export class Treasures implements OnInit {
   loadProducts() {
     this.http.get<Product[]>("https://localhost:7107/api/Treasure/GetProducts")
       .subscribe(products => {
+
+        // SORT: newest product first
+        products.sort((a, b) => b.productid - a.productid);
+
         this.products = products.map(p => ({
           ...p,
           quantityInCart: 0,
           isInWishlist: false
         }));
+
         this.loadUserCart();
         this.loadWishlist();
       });
   }
-
   loadWishlist() {
     this.wishlistService.getWishlist(this.clientId).subscribe(res => {
       if (res.success && res.wishlist) {

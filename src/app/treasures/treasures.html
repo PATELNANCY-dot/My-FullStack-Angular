@@ -26,19 +26,18 @@
 
   <div class="row g-4 mb-5">
 
-    <div class="col-sm-6 col-md-3" *ngFor="let p of products">
+    <!-- PAGINATED PRODUCTS -->
+    <div class="col-sm-6 col-md-3" *ngFor="let p of paginatedProducts">
 
       <div class="treasure-card treasure-olive">
 
         <img [src]="p.productimage" class="card-img-top" (click)="openModal(p)">
-
 
         <!-- Wishlist heart -->
         <i class="bi wishlist-heart"
            [ngClass]="{'bi-heart-fill': p.isInWishlist, 'bi-heart': !p.isInWishlist}"
            (click)="toggleWishlist(p); $event.stopPropagation()">
         </i>
-
 
         <h5 class="treasure-title">
           {{p.productname}}
@@ -51,8 +50,6 @@
         </p>
 
         <p class="treasure-price">RS. {{p.price}}</p>
-
-
 
         <!-- OUT OF STOCK -->
         <p *ngIf="p.productquentity === 0" class="out-stock">
@@ -105,6 +102,38 @@
 
   </div>
 
+  <!-- PAGINATION -->
+  <nav class="d-flex justify-content-center mt-4">
+    <ul class="pagination">
+
+      <!-- Previous -->
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="currentPage = currentPage - 1">
+          Previous
+        </button>
+      </li>
+
+      <!-- Page Numbers -->
+      <li class="page-item"
+          *ngFor="let page of [].constructor(totalPages); let i = index"
+          [class.active]="currentPage === i + 1">
+
+        <button class="page-link" (click)="currentPage = i + 1">
+          {{ i + 1 }}
+        </button>
+
+      </li>
+
+      <!-- Next -->
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <button class="page-link" (click)="currentPage = currentPage + 1">
+          Next
+        </button>
+      </li>
+
+    </ul>
+  </nav>
+
 </div>
 
 <!-- Modal -->
@@ -112,7 +141,6 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content" style="border-radius:18px;background:linear-gradient(145deg,#ffffff,#ece4d8);">
 
-      <!-- HEADER -->
       <div class="modal-header">
         <h5 class="modal-title" style="color:var(--deep-blue);font-weight:bold;">
           <i class="bi wishlist-heart"
@@ -123,32 +151,29 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
-      <!-- BODY -->
       <div class="modal-body" *ngIf="selectedProduct">
 
-        <!-- Wishlist heart -->
         <a [href]="selectedProduct.productimage" class="glightbox">
-
           <img [src]="selectedProduct.productimage" class="img-fluid modal-product-img">
-
         </a>
 
         <p>{{ selectedProduct.productdescription }}</p>
         <p><strong>Price:</strong> RS. {{ selectedProduct.price }}</p>
 
-        <p *ngIf="selectedProduct.productquentity === 0" class="out-stock" style=" color: #C65D5D;">Out of Stock</p>
-        <p *ngIf="selectedProduct.productquentity > 0 && selectedProduct.productquentity <= 5" class="low-stock" style=" color: #b07a3f;">
+        <p *ngIf="selectedProduct.productquentity === 0" class="out-stock" style="color:#C65D5D;">Out of Stock</p>
+
+        <p *ngIf="selectedProduct.productquentity > 0 && selectedProduct.productquentity <= 5"
+           class="low-stock" style="color:#b07a3f;">
           Only {{selectedProduct.productquentity}} remaining
         </p>
-        <!-- MAX STOCK REACHED -->
+
         <p *ngIf="selectedProduct.quantityInCart >= selectedProduct.productquentity && selectedProduct.productquentity > 0"
-           class="low-stock" style="color: #52796f">
+           class="low-stock" style="color:#52796f">
           Maximum stock reached
         </p>
 
       </div>
 
-      <!-- FOOTER -->
       <div class="modal-footer" *ngIf="selectedProduct">
 
         <button *ngIf="!selectedProduct.quantityInCart"
@@ -157,7 +182,7 @@
                 [disabled]="selectedProduct.productquentity === 0">
           Add to Cart
         </button>
-        <!-- Modal QUANTITY SELECTOR -->
+
         <div *ngIf="selectedProduct.quantityInCart > 0"
              class="d-flex align-items-center">
 
@@ -187,7 +212,6 @@
   </div>
 </div>
 
-<!-- Footer -->
 <footer>
   <p>&copy; 2026 Crafted Treasures | Handmade with Love</p>
 </footer>

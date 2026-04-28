@@ -8,7 +8,7 @@
 
   <!-- Stats Cards -->
   <div class="row g-4 mb-4">
-    <div class="col-md-4">
+    <div class="col-md-4"  routerLink="/admin/product-list">
       <div class="stats-card">
         <div class="icon bg-primary">
           <i class="bi bi-box-seam"></i>
@@ -20,9 +20,9 @@
       </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4"  routerLink="/admin/order-list">
       <div class="stats-card">
-        <div class="icon bg-success">
+        <div class="icon bg-success" >
           <i class="bi bi-cart-check"></i>
         </div>
         <div class="details">
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4"  routerLink="/admin/user-list">
       <div class="stats-card">
         <div class="icon bg-warning">
           <i class="bi bi-people"></i>
@@ -52,13 +52,13 @@
     <!-- LEFT COLUMN (2 ROWS) -->
     <div class="col-md-6 d-flex flex-column gap-4">
 
-      <!-- 📉 Orders Trend -->
+      <!--  Orders Trend -->
       <div class="chart-card p-3 flex-fill">
         <h5>📉 Orders Trend</h5>
         <canvas id="ordersChart" style="height: 300px;"></canvas>
       </div>
 
-      <!-- 📦 Top Products -->
+      <!--  Top Products -->
       <div class="chart-card p-3 flex-fill">
         <h5>📦 Top Products</h5>
         <canvas id="topProductsChart" style="height: 300px;"></canvas>

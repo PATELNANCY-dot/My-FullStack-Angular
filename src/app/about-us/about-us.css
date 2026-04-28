@@ -1,11 +1,11 @@
 ::-webkit-scrollbar {
-  width: 0px; /* Chrome, Safari, Edge */
+  width: 0px; 
   background: transparent;
 }
 
 html, body {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
 }
 
 :root {
@@ -23,7 +23,7 @@ body {
   color: var(--deep-blue);
 }
 
-/* Card Styling */
+
 .card {
   background: linear-gradient(145deg, #ffffff, #ece4d8);
   border-radius: 20px;
@@ -45,7 +45,7 @@ body {
   }
 
 
-/* ===== CART CONTAINER ===== */
+/*  CART CONTAINER */
 .container {
   background: linear-gradient(145deg, #ffffff, #ece4d8);
   padding: 30px;

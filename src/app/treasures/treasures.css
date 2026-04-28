@@ -316,3 +316,52 @@
 .wishlist-heart.bi-heart-fill {
   color: var(--mat-red) !important;
 }
+
+
+
+/* ===== PAGINATION STYLE (MATCH TREASURE THEME) ===== */
+
+.pagination .page-link {
+  border-radius: 12px;
+  margin: 0 4px;
+  border: none;
+  background: linear-gradient(145deg,#ffffff,#ece4d8);
+  color: var(--deep-blue);
+  font-weight: 500;
+  box-shadow: var(--shadow-soft);
+  transition: all .25s ease;
+}
+
+  /* Hover */
+  .pagination .page-link:hover {
+    background: var(--rose);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+/* Active page */
+.pagination .page-item.active .page-link {
+  background: var(--rose);
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+
+/* Previous / Next */
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+  font-weight: 600;
+  color: var(--deep-blue);
+}
+
+/* Disabled buttons */
+.pagination .page-item.disabled .page-link {
+  opacity: .4;
+  pointer-events: none;
+}
+
+/* Pagination container spacing */
+.pagination {
+  padding: 10px 16px;
+  border-radius: 20px;
+  background: transparent;
+}
